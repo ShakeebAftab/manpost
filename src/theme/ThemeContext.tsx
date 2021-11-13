@@ -23,7 +23,15 @@ export const ThemeContextProvider = ({ children }: Props) => {
       MuiCssBaseline: {
         "@global": {
           "*::-webkit-scrollbar": {
-            display: "none",
+            width: "0.4em",
+            height: "0.4em",
+          },
+          "*::-webkit-scrollbar-track": {
+            "-webkit-box-shadow": "inset 0 0 6px #828282",
+          },
+          "*::-webkit-scrollbar-thumb": {
+            backgroundColor: "#808080",
+            borderRadius: 5,
           },
         },
       },
@@ -51,7 +59,15 @@ export const ThemeContextProvider = ({ children }: Props) => {
       MuiCssBaseline: {
         "@global": {
           "*::-webkit-scrollbar": {
-            display: "none",
+            width: "0.4em",
+            height: "0.4em",
+          },
+          "*::-webkit-scrollbar-track": {
+            "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.7)",
+          },
+          "*::-webkit-scrollbar-thumb": {
+            backgroundColor: "#707070",
+            borderRadius: 5,
           },
         },
       },
