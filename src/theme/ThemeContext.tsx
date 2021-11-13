@@ -1,6 +1,7 @@
 import { createTheme } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import { createContext, Dispatch, ReactNode, useState } from "react";
+import { AppContextProvider } from "../context/AppContext";
 
 type ThemeState = {
   isDark: boolean;
@@ -28,9 +29,11 @@ export const ThemeContextProvider = ({ children }: Props) => {
 
   return (
     <ThemeContext.Provider value={[isDark, setIsDark]}>
-      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-        {children}
-      </ThemeProvider>
+      <AppContextProvider>
+        <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+          {children}
+        </ThemeProvider>
+      </AppContextProvider>
     </ThemeContext.Provider>
   );
 };

@@ -1,15 +1,24 @@
-import { Box, InputBase } from "@material-ui/core";
-import { Dispatch } from "react";
+import { Box, InputBase, useTheme } from "@material-ui/core";
+import { Dispatch, useState } from "react";
 
 interface Props {
   value: string;
   setValue: Dispatch<string>;
+  placeholder?: string;
 }
 
-export const InputField = ({ value, setValue }: Props) => {
+export const InputField = ({ value, setValue, placeholder }: Props) => {
+  const theme = useTheme();
+  const [isFocused, setIsFocused] = useState(false);
+
   return (
     <Box
-      style={{ border: "1px solid black", borderRadius: 5 }}
+      style={{
+        border: isFocused
+          ? `2px solid ${theme.palette.primary.main}`
+          : "0.5px solid gray",
+        borderRadius: 5,
+      }}
       p="5px"
       pt="0px"
       pb="0px"
@@ -21,8 +30,9 @@ export const InputField = ({ value, setValue }: Props) => {
         fullWidth
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Please enter the url..."
-        onFocus={() => {}}
+        placeholder={placeholder}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
       />
     </Box>
   );
