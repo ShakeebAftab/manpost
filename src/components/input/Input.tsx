@@ -1,15 +1,40 @@
 import { Button, Grid } from "@material-ui/core";
-import { useState } from "react";
+import axios, { AxiosResponse, Method } from "axios";
+import { useContext, useState } from "react";
+import { AppContext } from "../../context/AppContext";
 import { InputField } from "./InputField";
 import { Options } from "./Options";
+import { Response } from "./Response";
 import { Selector } from "./Selector";
 
 export const Input = () => {
   const [uri, setUri] = useState("");
-  const [method, setMethod] = useState("GET");
+  const [method, setMethod] = useState<Method>("GET");
+  const [res, setRes] = useState<AxiosResponse<any, any> | undefined>(
+    undefined
+  );
+  const [resTime, setResTime] = useState(0);
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const [queryParams] = useContext(AppContext);
+
+  const handleSubmit = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
+    const start = new Date().getTime();
+    try {
+      const data = await axios(uri, {
+        method: method,
+        params: queryParams,
+      });
+      console.log(data);
+      setRes(data);
+    } catch (error: any) {
+      console.log(error.message);
+      setRes(error.response);
+    }
+    const end = new Date().getTime();
+    setResTime(end - start);
   };
 
   return (
@@ -45,6 +70,11 @@ export const Input = () => {
         <Grid item xs={12}>
           <Options />
         </Grid>
+        {res && (
+          <Grid item xs={12}>
+            <Response response={res} time={resTime} />
+          </Grid>
+        )}
       </Grid>
     </form>
   );
