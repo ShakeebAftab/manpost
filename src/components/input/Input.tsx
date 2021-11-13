@@ -17,8 +17,20 @@ export const Input = () => {
   const [resTime, setResTime] = useState(0);
   const [json, setJson] = useState("");
 
-  const [queryParams, , , , , reqJson] = useContext(AppContext);
+  const [queryParams, headerParams, , , , reqJson] = useContext(AppContext);
   const [isDark] = useContext(ThemeContext);
+
+  const getParams = (arrayParams: any[]) => {
+    let params: any = {};
+    arrayParams.forEach((param: any) => {
+      const newParam: any = {};
+      if (param.key !== "" && param.value !== "") {
+        newParam[param.key] = param.value;
+        params = { ...params, ...newParam };
+      }
+    });
+    return params;
+  };
 
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -38,10 +50,10 @@ export const Input = () => {
     try {
       const data = await axios(uri, {
         method: method,
-        params: queryParams,
+        params: getParams(queryParams),
+        headers: getParams(headerParams),
         data: json,
       });
-      console.log(data);
       setRes(data);
     } catch (error: any) {
       console.log(error.message);
