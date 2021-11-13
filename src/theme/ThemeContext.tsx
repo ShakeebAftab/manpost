@@ -1,4 +1,5 @@
 import { createTheme } from "@material-ui/core";
+import { red } from "@material-ui/core/colors";
 import { ThemeProvider } from "@material-ui/styles";
 import { createContext, Dispatch, ReactNode, useState } from "react";
 import { AppContextProvider } from "../context/AppContext";
@@ -15,14 +16,52 @@ interface Props {
 }
 
 export const ThemeContextProvider = ({ children }: Props) => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
-  const lightTheme = createTheme({});
+  const lightTheme = createTheme({
+    overrides: {
+      MuiCssBaseline: {
+        "@global": {
+          "*::-webkit-scrollbar": {
+            display: "none",
+          },
+        },
+      },
+    },
+  });
 
   const darkTheme = createTheme({
     palette: {
+      primary: {
+        main: red[600],
+      },
+      secondary: {
+        main: "#fff",
+      },
       background: {
-        default: "#000",
+        default: "#18191A",
+        paper: "#242526",
+      },
+      text: {
+        primary: "#fff",
+        secondary: "#808080",
+      },
+    },
+    overrides: {
+      MuiCssBaseline: {
+        "@global": {
+          "*::-webkit-scrollbar": {
+            display: "none",
+          },
+        },
+      },
+      MuiSwitch: {
+        track: {
+          "$checked$checked+&": {
+            opacity: 0.3,
+            backgroundColor: "#464646",
+          },
+        },
       },
     },
   });

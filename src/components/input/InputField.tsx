@@ -1,5 +1,6 @@
 import { Box, InputBase, useTheme } from "@material-ui/core";
-import { Dispatch, useState } from "react";
+import { Dispatch, useContext, useState } from "react";
+import { ThemeContext } from "../../theme/ThemeContext";
 
 interface Props {
   value: string;
@@ -10,6 +11,7 @@ interface Props {
 export const InputField = ({ value, setValue, placeholder }: Props) => {
   const theme = useTheme();
   const [isFocused, setIsFocused] = useState(false);
+  const [isDark] = useContext(ThemeContext);
 
   return (
     <Box
@@ -18,6 +20,7 @@ export const InputField = ({ value, setValue, placeholder }: Props) => {
           ? `2px solid ${theme.palette.primary.main}`
           : "0.5px solid gray",
         borderRadius: 5,
+        background: isDark ? "#4E4F50" : "#fff",
       }}
       p="5px"
       pt="0px"
@@ -33,6 +36,7 @@ export const InputField = ({ value, setValue, placeholder }: Props) => {
         placeholder={placeholder}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        inputProps={isDark && { style: { color: "white" } }}
       />
     </Box>
   );

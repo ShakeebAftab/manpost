@@ -2,6 +2,7 @@ import { Button, Grid } from "@material-ui/core";
 import axios, { AxiosResponse, Method } from "axios";
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
+import { ThemeContext } from "../../theme/ThemeContext";
 import { InputField } from "./InputField";
 import { Options } from "./Options";
 import { Response } from "./Response";
@@ -17,6 +18,7 @@ export const Input = () => {
   const [json, setJson] = useState("");
 
   const [queryParams, , , , , reqJson] = useContext(AppContext);
+  const [isDark] = useContext(ThemeContext);
 
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -59,7 +61,10 @@ export const Input = () => {
           item
           xs={4}
           sm={8}
-          style={{ display: "flex", justifyContent: "center" }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
         >
           <InputField
             value={uri}
@@ -71,7 +76,7 @@ export const Input = () => {
           <Button
             color="primary"
             type="submit"
-            variant="outlined"
+            variant={isDark ? "contained" : "outlined"}
             fullWidth
             style={{ height: "100%" }}
             onClick={(e) => handleSubmit(e)}

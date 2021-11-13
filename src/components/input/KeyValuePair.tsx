@@ -1,6 +1,7 @@
 import { Box, Button, Grid } from "@material-ui/core";
 import { useContext } from "react";
 import { AppContext, ParamsType } from "../../context/AppContext";
+import { ThemeContext } from "../../theme/ThemeContext";
 import { InputField } from "./InputField";
 
 interface Props {
@@ -16,6 +17,8 @@ export const KeyValuePair = ({ pair, type }: Props) => {
 
   const updateValue = (valueToUpdate: string) =>
     updateParam(type, pair.id, valueToUpdate, "value");
+
+  const [isDark] = useContext(ThemeContext);
 
   return (
     <Box overflow="hidden">
@@ -35,7 +38,8 @@ export const KeyValuePair = ({ pair, type }: Props) => {
             size="small"
             color="primary"
             onClick={() => deleteParam(type, pair.id)}
-            variant="outlined"
+            variant={isDark ? "contained" : "outlined"}
+            style={{ height: "100%" }}
           >
             Remove
           </Button>
