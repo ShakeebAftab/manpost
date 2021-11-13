@@ -19,33 +19,25 @@ export const KeyValuePair = ({ pair, type }: Props) => {
 
   return (
     <Box overflow="hidden">
-      <Grid container spacing={2}>
-        <Grid item xs={4}>
+      <Grid container spacing={1}>
+        <Grid item xs={3} sm={3}>
           <InputField value={pair.key} setValue={updateKey} placeholder="Key" />
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={6} sm={7}>
           <InputField
             value={pair.value}
             setValue={updateValue}
             placeholder="Value"
           />
         </Grid>
-        <Grid
-          item
-          xs={1}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <Grid item xs={3} sm={2}>
           <Button
             size="small"
             color="primary"
-            fullWidth
             onClick={() => deleteParam(type, pair.id)}
+            variant="outlined"
           >
-            X
+            Remove
           </Button>
         </Grid>
       </Grid>
