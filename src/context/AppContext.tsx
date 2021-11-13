@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, Dispatch, ReactNode, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
 export interface ParamsType {
@@ -18,6 +18,8 @@ interface ContextType {
     updateVal: "key" | "value"
   ) => void;
   deleteParam: (type: string, id: string) => void;
+  reqJson: string;
+  setReqJson: Dispatch<string>;
 }
 
 export const AppContext = createContext<ContextType | any>([]);
@@ -29,6 +31,7 @@ interface Props {
 export const AppContextProvider = ({ children }: Props) => {
   const [queryParams, setQueryParams] = useState<ParamsType[]>([]);
   const [headerParams, setHeaderParams] = useState<ParamsType[]>([]);
+  const [reqJson, setReqJson] = useState("");
 
   // Add new param
   const addNewParam = (type: string) => {
@@ -86,9 +89,22 @@ export const AppContextProvider = ({ children }: Props) => {
     ]);
   };
 
+  useEffect(() => {
+    addNewParam("HEADERPARAMS");
+    addNewParam("QUERYPARAMS");
+  }, []);
+
   return (
     <AppContext.Provider
-      value={[queryParams, headerParams, addNewParam, updateParam, deleteParam]}
+      value={[
+        queryParams,
+        headerParams,
+        addNewParam,
+        updateParam,
+        deleteParam,
+        reqJson,
+        setReqJson,
+      ]}
     >
       {children}
     </AppContext.Provider>

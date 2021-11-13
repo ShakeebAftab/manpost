@@ -19,6 +19,7 @@ interface Props {
 
 export const Response = ({ response, time }: Props) => {
   const classes = useStyles();
+
   return (
     <Box overflow="hidden">
       <Grid container spacing={1}>

@@ -5,6 +5,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { ResponseHeaders } from "./ResponseHeaders";
+import { ResponseBody } from "./ResponseBody";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -81,7 +82,7 @@ export const ResponseOptions = ({ response }: Props) => {
         <Tab label="Headers" {...a11yProps(1)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        Body
+        <ResponseBody response={response} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <ResponseHeaders headers={headers} />

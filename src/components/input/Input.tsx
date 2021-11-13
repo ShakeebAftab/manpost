@@ -14,18 +14,30 @@ export const Input = () => {
     undefined
   );
   const [resTime, setResTime] = useState(0);
+  const [json, setJson] = useState("");
 
-  const [queryParams] = useContext(AppContext);
+  const [queryParams, , , , , reqJson] = useContext(AppContext);
 
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+
+    try {
+      const jsonData = JSON.parse(reqJson || null);
+      setJson(jsonData);
+    } catch (error: any) {
+      console.log(error.message);
+      alert("JSON isn't parsed correctly");
+      return;
+    }
+
     const start = new Date().getTime();
     try {
       const data = await axios(uri, {
         method: method,
         params: queryParams,
+        data: json,
       });
       console.log(data);
       setRes(data);

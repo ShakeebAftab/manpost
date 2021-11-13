@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Params } from "./Params";
 import { AppContext } from "../../context/AppContext";
+import { RequestJson } from "./RequestJson";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -75,7 +76,7 @@ export const Options = () => {
         <Params keyValPairs={headerParams} type="HEADERPARAMS" />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        JSON
+        <RequestJson />
       </TabPanel>
     </div>
   );
