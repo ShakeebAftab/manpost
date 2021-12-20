@@ -1,4 +1,4 @@
-import { createTheme } from "@material-ui/core";
+import { createTheme, PaletteType } from "@material-ui/core";
 import { red } from "@material-ui/core/colors";
 import { ThemeProvider } from "@material-ui/styles";
 import { createContext, Dispatch, ReactNode, useState } from "react";
@@ -40,19 +40,9 @@ export const ThemeContextProvider = ({ children }: Props) => {
 
   const darkTheme = createTheme({
     palette: {
+      type: "dark" as PaletteType,
       primary: {
         main: red[600],
-      },
-      secondary: {
-        main: "#fff",
-      },
-      background: {
-        default: "#18191A",
-        paper: "#242526",
-      },
-      text: {
-        primary: "#fff",
-        secondary: "#808080",
       },
     },
     overrides: {
